@@ -124,6 +124,7 @@ jobs:
           "$hash  ${{ env.ARTIFACT_NAME }}" | Out-File -Encoding ascii "${{ env.ARTIFACT_NAME }}.sha256"
 
       - name: Upload binary to release
+        shell: bash
         run: |
           set -e
           gh release upload "${{ github.event.release.tag_name }}" \
