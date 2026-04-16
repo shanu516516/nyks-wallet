@@ -127,8 +127,8 @@ jobs:
         run: |
           set -e
           gh release upload "${{ github.event.release.tag_name }}" \
-            "${{ env.ARTIFACT_NAME }}#${{ matrix.label }} v${{ env.VERSION }}" \
-            "${{ env.ARTIFACT_NAME }}.sha256#SHA256 checksum for ${{ matrix.label }} v${{ env.VERSION }}" \
+            "${{ env.ARTIFACT_NAME }}#${{ matrix.label }} ${{ env.VERSION }}" \
+            "${{ env.ARTIFACT_NAME }}.sha256#SHA256 checksum for ${{ matrix.label }} ${{ env.VERSION }}" \
             --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
