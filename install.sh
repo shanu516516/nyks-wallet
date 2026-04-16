@@ -73,7 +73,7 @@ CHECKSUM_URL="$(echo "${RELEASE_JSON}" | grep "browser_download_url" | grep "${A
 if [ -n "${CHECKSUM_URL}" ] && [ "${CHECKSUM_URL}" != "null" ]; then
     echo "Verifying checksum..."
 
-    EXPECTED="$(curl -sf "${CHECKSUM_URL}" | cut -d ' ' -f 1)"
+    EXPECTED="$(curl -sfL "${CHECKSUM_URL}" | cut -d ' ' -f 1)"
 
     if [ -z "${EXPECTED}" ]; then
         echo "Warning: could not download checksum file, skipping verification" >&2
