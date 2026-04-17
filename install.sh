@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-REPO="twilight-project/nyks-wallet"
+REPO="shanu516516/nyks-wallet"
 API_URL="https://api.github.com/repos/${REPO}/releases?per_page=100"
 INSTALL_DIR="."
 BINARY_NAME="relayer-cli"

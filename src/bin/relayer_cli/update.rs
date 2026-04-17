@@ -14,7 +14,7 @@ impl Drop for TempFileGuard {
 }
 
 const GITHUB_API_URL: &str =
-    "https://api.github.com/repos/twilight-project/nyks-wallet/releases?per_page=100";
+    "https://api.github.com/repos/shanu516516/nyks-wallet/releases?per_page=100";
 const CURRENT_VERSION: &str = env!("CARGO_PKG_VERSION");
 const RELEASE_TAG_SUFFIX: &str = "-relayer-cli";
 
@@ -121,9 +121,8 @@ pub(crate) async fn handle_update(check_only: bool) -> Result<(), String> {
         .await
         .map_err(|e| format!("Failed to parse release JSON: {e}"))?;
 
-    let release = pick_latest_relayer_release(releases).ok_or_else(|| {
-        format!("No release found with tag suffix '{RELEASE_TAG_SUFFIX}'.")
-    })?;
+    let release = pick_latest_relayer_release(releases)
+        .ok_or_else(|| format!("No release found with tag suffix '{RELEASE_TAG_SUFFIX}'."))?;
 
     let remote = parse_version(&release.tag_name)?;
     let local = parse_version(CURRENT_VERSION)?;
@@ -200,8 +199,7 @@ pub(crate) async fn handle_update(check_only: bool) -> Result<(), String> {
 
     // --- Write and replace -------------------------------------------------------
 
-    let tmp_path =
-        std::env::temp_dir().join(format!("relayer-cli-update-{}", std::process::id()));
+    let tmp_path = std::env::temp_dir().join(format!("relayer-cli-update-{}", std::process::id()));
     let _tmp_guard = TempFileGuard(tmp_path.clone());
 
     {
@@ -373,7 +371,10 @@ mod tests {
         ];
         let picked =
             find_checksum_asset(&assets, "_windows_amd64.exe").expect("should find checksum");
-        assert_eq!(picked.name, "nw_v0.1.9_relayer_cli_windows_amd64.exe.sha256");
+        assert_eq!(
+            picked.name,
+            "nw_v0.1.9_relayer_cli_windows_amd64.exe.sha256"
+        );
     }
 
     #[test]
@@ -457,8 +458,8 @@ mod tests {
     #[test]
     fn skips_drafts_and_prereleases() {
         let releases = vec![
-            make_release("v0.2.0-relayer-cli", true, false),  // draft
-            make_release("v0.1.9-relayer-cli", false, true),  // prerelease
+            make_release("v0.2.0-relayer-cli", true, false), // draft
+            make_release("v0.1.9-relayer-cli", false, true), // prerelease
             make_release("v0.1.8-relayer-cli", false, false), // stable
         ];
         let picked = pick_latest_relayer_release(releases).expect("should pick a release");

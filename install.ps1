@@ -15,7 +15,7 @@
 & {
     $ErrorActionPreference = "Stop"
 
-    $Repo = "twilight-project/nyks-wallet"
+    $Repo = "shanu516516/nyks-wallet"
     $ApiUrl = "https://api.github.com/repos/$Repo/releases?per_page=100"
     $PlatformSuffix = "_windows_amd64.exe"
     $BinaryName = "relayer-cli.exe"
